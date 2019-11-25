@@ -1,5 +1,8 @@
 pipeline {
     agent { label 'ubuntu' }
+    tools {
+    maven 'Maven'
+    }
         
     
     stages {
