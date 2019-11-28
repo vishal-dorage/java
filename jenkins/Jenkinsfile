@@ -6,9 +6,10 @@ pipeline {
         
     
     stages {
-        stage('Build') {
+        stage('build & SonarQube analysis') {
             steps {
-                sh 'mvn -B -DskipTests clean package'
+                withSonarQubeEnv('My SonarQube Server')
+                sh 'mvn -B -DskipTests clean package sonar:sonar'
             }
         }
         stage('Test') {
@@ -24,8 +25,8 @@ pipeline {
         stage('Deliver') {
             steps {
                 sh './jenkins/scripts/deliver.sh'
-                sh 'cd /home/jenkins/agent/workspace/Java-Pipeline/target'
-                sh 'cp my-app-1.0-SNAPSHOT.jar /home'
+                
+                
             }
         }
     }
