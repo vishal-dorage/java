@@ -1,14 +1,14 @@
 pipeline {
     agent none
     tools {
-    maven '/usr/share/maven'
+    maven 'maven3'
     }
         
     
     stages {
         stage('build & SonarQube analysis') {
             steps {
-                withSonarQubeEnv('sonar')
+                withSonarQubeEnv('sonar-server')
                 sh 'mvn -B -DskipTests clean package sonar:sonar'
             }
         }
